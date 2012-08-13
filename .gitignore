@@ -1,0 +1,8 @@
+.project
+.cache
+.classpath
+bin
+project/project
+project/target
+src/main/webapp/VAADIN/widgetsets
+target
