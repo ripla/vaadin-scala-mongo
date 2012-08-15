@@ -10,7 +10,6 @@ import scala.reflect.BeanProperty
 class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Scala") {
 
   val registrations: MongoCollection = MongoConnection()("vaadin-scala-mongo-example")("registrations")
-
   def mapRegistrations: List[MinRegistration] = registrations.map(grater[MinRegistration].asObject(_)).toList
 
   override val main: ComponentContainer = new HorizontalLayout {
@@ -29,7 +28,6 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
       }
 
       val addButton: Button = Button("Register", showForm)
-
       components += (table, addButton)
     }
 
@@ -48,6 +46,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
     def showForm(): Unit = {
       form.item = new BeanItem[MinRegistration](MinRegistration())
       form.visibleItemProperties = Seq("realName", "username", "password")
+      form.addField("confirmation", form.formFieldFactory.get.createField(FormFieldIngredients(form.item.get, "confirmation", form)).get)
       replaceComponent(tableLayout, form)
       alignment(form -> Alignment.MiddleCenter)
     }
@@ -67,16 +66,24 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
   }
 
   def createFormFieldFactory = FormFieldFactory(ing => {
-    var field: Option[Field] = None
-
-    ing match {
+    var field: Option[Field] = ing match {
       case FormFieldIngredients(_, "password", _) =>
-        field = Some(new PasswordField {
+        Some(new PasswordField {
           caption = DefaultFieldFactory.createCaptionByPropertyId("password")
         })
 
+      case FormFieldIngredients(item, "confirmation", _) =>
+        Some(new PasswordField {
+          caption = "Confirm password"
+          validators += Validator(value => {
+            if (value == item.property("password").get.value) Valid
+            else Invalid("Passwords must match")
+          })
+
+        })
+
       case otherIngredient => {
-        field = DefaultFieldFactory.createField(otherIngredient)
+        DefaultFieldFactory.createField(otherIngredient)
       }
     }
 
