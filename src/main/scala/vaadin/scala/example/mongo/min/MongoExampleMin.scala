@@ -23,7 +23,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
       val table = new Table {
         sizeFull()
         styleNames += (Reindeer.TABLE_BORDERLESS, Reindeer.TABLE_STRONG)
-        container = new BeanItemContainer(registrations.map(grater[MinRegistration].asObject(_)).toList)
+        container = new BeanItemContainer(mapRegistrations)
         visibleColumns = Seq("username", "realName")
       }
 
