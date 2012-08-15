@@ -17,7 +17,8 @@ resolvers ++= Seq("TypeSafe repo" at "http://repo.typesafe.com/typesafe/releases
 // basic dependencies
 libraryDependencies ++= Seq(
   "com.vaadin" % "vaadin" % "6.8.2",
-  "org.eclipse.jetty" % "jetty-webapp" % "8.0.4.v20111024" % "container"
+  "org.eclipse.jetty" % "jetty-webapp" % "8.0.4.v20111024" % "container",
+  "vaadin.scala" %% "scaladin" % "2.0.0-SNAPSHOT"
 )
 
 libraryDependencies ++= Seq(
