@@ -7,12 +7,13 @@ import com.novus.salat.global._
 import scala.util.Random
 import scala.reflect.BeanProperty
 
-class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Scala") {
+class MongoExample extends Application("Mongo & Vaadin, tied together with Scala") {
 
   val registrations: MongoCollection = MongoConnection()("vaadin-scala-mongo-example")("registrations")
-  def mapRegistrations: List[MinRegistration] = registrations.map(grater[MinRegistration].asObject(_)).toList
+  def mapRegistrations: List[Registration] = registrations.map(grater[Registration].asObject(_)).toList
+  def saveRegistration(registration: Registration): Unit = registrations += grater[Registration].asDBObject(registration)
 
-  override val main: ComponentContainer = new HorizontalLayout {
+  override val main: ComponentContainer = new VerticalLayout {
     sizeFull()
     styleName = Reindeer.LAYOUT_WHITE
 
@@ -44,7 +45,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
     alignment(tableLayout -> Alignment.MiddleCenter)
 
     def showForm(): Unit = {
-      form.item = new BeanItem(MinRegistration())
+      form.item = new BeanItem(Registration())
       form.visibleItemProperties = Seq("realName", "username", "password")
       form.addField("confirmation", form.formFieldFactory.get.createField(FormFieldIngredients(form.item.get, "confirmation", form)).get)
       replaceComponent(tableLayout, form)
@@ -54,8 +55,8 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
     def showList(): Unit = {
       try {
         form.commit
-        val bean = form.item.get.asInstanceOf[BeanItem[MinRegistration]].bean
-        registrations += grater[MinRegistration].asDBObject(bean)
+        val bean = form.item.get.asInstanceOf[BeanItem[Registration]].bean
+        saveRegistration(bean)
         tableLayout.table.container = new BeanItemContainer(mapRegistrations)
         tableLayout.table.visibleColumns = Seq("username", "realName")
         replaceComponent(form, tableLayout)
@@ -93,7 +94,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
   })
 }
 
-case class MinRegistration(
+case class Registration(
   @BeanProperty var username: String = "username" + Random.nextInt,
   @BeanProperty var password: String = "",
   @BeanProperty var realName: String = "Joe Tester")

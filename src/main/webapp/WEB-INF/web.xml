@@ -14,7 +14,7 @@
 		<init-param>
 			<description>Vaadin application class to start</description>
 			<param-name>application</param-name>
-			<param-value>vaadin.scala.example.mongo.min.MongoExampleMin</param-value>
+			<param-value>vaadin.scala.example.mongo.min.MongoExample</param-value>
 		</init-param>
 		<!--<init-param>
 			<description>Application widgetset</description>
