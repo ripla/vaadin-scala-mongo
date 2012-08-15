@@ -1,4 +1,4 @@
-package vaadin.scala.example.mongo
+package vaadin.scala.example.mongo.full
 
 import scala.reflect.BeanProperty
 import scala.util.Random
