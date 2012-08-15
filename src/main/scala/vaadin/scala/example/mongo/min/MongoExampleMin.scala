@@ -81,7 +81,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
     }
 
     field.foreach(_.required = true)
-    field.foreach(f => f.requiredError_=("%s is required".format(f.caption.get)))
+    field.foreach(f => f.requiredError = "%s is required".format(f.caption.get))
     field
   })
 }
