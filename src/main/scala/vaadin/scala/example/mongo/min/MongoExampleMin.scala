@@ -23,7 +23,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
       val table = new Table {
         sizeFull()
         styleNames += (Reindeer.TABLE_BORDERLESS, Reindeer.TABLE_STRONG)
-        container = new BeanItemContainer[MinRegistration](registrations.map(grater[MinRegistration].asObject(_)).toList)
+        container = new BeanItemContainer(registrations.map(grater[MinRegistration].asObject(_)).toList)
         visibleColumns = Seq("username", "realName")
       }
 
@@ -44,7 +44,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
     alignment(tableLayout -> Alignment.MiddleCenter)
 
     def showForm(): Unit = {
-      form.item = new BeanItem[MinRegistration](MinRegistration())
+      form.item = new BeanItem(MinRegistration())
       form.visibleItemProperties = Seq("realName", "username", "password")
       form.addField("confirmation", form.formFieldFactory.get.createField(FormFieldIngredients(form.item.get, "confirmation", form)).get)
       replaceComponent(tableLayout, form)
@@ -56,7 +56,7 @@ class MongoExampleMin extends Application("Mongo & Vaadin, tied together with Sc
         form.commit
         val bean = form.item.get.asInstanceOf[BeanItem[MinRegistration]].bean
         registrations += grater[MinRegistration].asDBObject(bean)
-        tableLayout.table.container = new BeanItemContainer[MinRegistration](mapRegistrations)
+        tableLayout.table.container = new BeanItemContainer(mapRegistrations)
         tableLayout.table.visibleColumns = Seq("username", "realName")
         replaceComponent(form, tableLayout)
         alignment(tableLayout -> Alignment.MiddleCenter)

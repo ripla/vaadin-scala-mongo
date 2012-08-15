@@ -18,11 +18,9 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
       size(50 pct, 50 pct)
       spacing = true
 
-      val table = new Table {
+      val table = new RegistrationTable {
         sizeFull()
-        styleNames += (Reindeer.TABLE_BORDERLESS, Reindeer.TABLE_STRONG)
-        container = new BeanItemContainer[Registration](service.all)
-        visibleColumns = Seq("username", "realName")
+        container = new BeanItemContainer(service.all)
       }
 
       val addButton: Button = Button("Register", showForm)
@@ -43,7 +41,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
     alignment(tableLayout -> Alignment.MiddleCenter)
 
     def showForm(): Unit = {
-      form.item = new BeanItem[Registration](Registration())
+      form.item = new BeanItem(Registration())
       replaceComponent(tableLayout, form)
       alignment(form -> Alignment.MiddleCenter)
     }
@@ -53,8 +51,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
         form.commit
         val bean = form.item.get.bean
         service.create(bean)
-        tableLayout.table.container = new BeanItemContainer[Registration](service.all)
-        tableLayout.table.visibleColumns = Seq("username", "realName")
+        tableLayout.table.container = new BeanItemContainer(service.all)
         replaceComponent(form, tableLayout)
         alignment(tableLayout -> Alignment.MiddleCenter)
         mainWindow.showNotification("User %s registered".format(bean.username))
