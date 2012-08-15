@@ -7,13 +7,14 @@
 		<param-name>productionMode</param-name>
 		<param-value>false</param-value>
 	</context-param>
+	
 	<servlet>
 		<servlet-name>Minimal example</servlet-name>
 		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
 		<init-param>
 			<description>Vaadin application class to start</description>
 			<param-name>application</param-name>
-			<param-value>vaadin.scala.example.mongo.MongoExampleMinimal</param-value>
+			<param-value>vaadin.scala.example.mongo.min.MongoExample</param-value>
 		</init-param>
 		<!--<init-param>
 			<description>Application widgetset</description>
@@ -21,6 +22,22 @@
 		  		<param-value>vaadin.scala.example.mongo.MongoExampleWidgetset</param-value>
 		  	</init-param>-->
 	</servlet>
+
+	<servlet>
+		<servlet-name>Full example</servlet-name>
+		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
+		<init-param>
+			<description>Vaadin application class to start</description>
+			<param-name>application</param-name>
+			<param-value>vaadin.scala.example.mongo.full.MongoExample</param-value>
+		</init-param>
+		<!--<init-param>
+			<description>Application widgetset</description>
+		  		<param-name>widgetset</param-name>
+		  		<param-value>vaadin.scala.example.mongo.MongoExampleWidgetset</param-value>
+		  	</init-param>-->
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>Minimal example</servlet-name>
 		<url-pattern>/min/*</url-pattern>
@@ -28,6 +45,16 @@
 
 	<servlet-mapping>
 		<servlet-name>Minimal example</servlet-name>
+		<url-pattern>/VAADIN/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Full example</servlet-name>
+		<url-pattern>/full/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Full example</servlet-name>
 		<url-pattern>/VAADIN/*</url-pattern>
 	</servlet-mapping>
 	
