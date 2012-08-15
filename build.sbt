@@ -1,4 +1,4 @@
-import net.thunderklaus.GwtPlugin._
+//import net.thunderklaus.GwtPlugin._
 
 name := "Vaadin, Scala and Mongo"
  
