@@ -13,14 +13,13 @@ object RegistrationFormFieldFactory extends FormFieldFactory {
           caption = DefaultFieldFactory.createCaptionByPropertyId(PasswordFieldId)
         })
 
-      case FormFieldIngredients(item, "confirmation", _) =>
+      case FormFieldIngredients(_, "confirmation", form: Form) =>
         Some(new PasswordField {
           caption = "Confirm password"
           validators += Validator(value => {
-            if (value == item.property(PasswordFieldId).get.value) Valid
+            if (value == form.field("password").get.value) Valid
             else Invalid("Passwords must match")
           })
-
         })
 
       case otherIngredient =>

@@ -28,13 +28,14 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
         visibleColumns = Seq("username", "realName")
       }
 
-      val addButton: Button = Button("Register", showForm)
+      val addButton = Button("Register", showForm)
       components += (table, addButton)
     }
 
     val form = new Form {
       size(50 pct, 50 pct)
       caption = "Registration"
+      writeThrough = false
       formFieldFactory = createFormFieldFactory
       footer = new HorizontalLayout {
         components += Button("Save", showList)
@@ -47,7 +48,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
     def showForm(): Unit = {
       form.item = new BeanItem(Registration())
       form.visibleItemProperties = Seq("realName", "username", "password")
-      form.addField("confirmation", form.formFieldFactory.get.createField(FormFieldIngredients(form.item.get, "confirmation", form)).get)
+      form.addField(Option("confirmation"), form.formFieldFactory.flatMap(_.createField(FormFieldIngredients(form.item.get, "confirmation", form))))
       replaceComponent(tableLayout, form)
       alignment(form -> Alignment.MiddleCenter)
     }
@@ -73,14 +74,13 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
           caption = DefaultFieldFactory.createCaptionByPropertyId("password")
         })
 
-      case FormFieldIngredients(item, "confirmation", _) =>
+      case FormFieldIngredients(_, "confirmation", form: Form) =>
         Some(new PasswordField {
           caption = "Confirm password"
           validators += Validator(value => {
-            if (value == item.property("password").get.value) Valid
+            if (value == form.field("password").get.value) Valid
             else Invalid("Passwords must match")
           })
-
         })
 
       case otherIngredient => {
