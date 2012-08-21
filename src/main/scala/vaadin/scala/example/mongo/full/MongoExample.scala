@@ -28,7 +28,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
       components += (table, addButton)
     }
 
-    val form = new RegistrationForm {
+    lazy val form = new RegistrationForm {
       size(50 pct, 50 pct)
 
       footer = new HorizontalLayout {
@@ -47,14 +47,14 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
     }
 
     def showList(): Unit = {
-        if(form.commit.isValid) { //form handles error
+      if (form.commit.isValid) { //form handles error
         val bean = form.item.get.bean
         service.create(bean)
         tableLayout.table.container = new BeanItemContainer(service.all)
         replaceComponent(form, tableLayout)
         alignment(tableLayout -> Alignment.MiddleCenter)
         mainWindow.showNotification("User %s registered".format(bean.username))
-      } 
+      }
     }
   }
 }

@@ -32,7 +32,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
       components += (table, addButton)
     }
 
-    val form = new Form {
+    lazy val form = new Form {
       size(50 pct, 50 pct)
       caption = "Registration"
       writeThrough = false
