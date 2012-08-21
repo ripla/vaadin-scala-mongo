@@ -36,7 +36,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
       size(50 pct, 50 pct)
       caption = "Registration"
       writeThrough = false
-      formFieldFactory = createFormFieldFactory
+      formFieldFactory = registrationFormFieldFactory
       footer = new HorizontalLayout {
         components += Button("Save", showList)
       }
@@ -66,7 +66,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
     }
   }
 
-  def createFormFieldFactory = FormFieldFactory(ing => {
+  val registrationFormFieldFactory = FormFieldFactory(ing => {
     var field: Option[Field] = ing match {
       case FormFieldIngredients(_, "password", _) =>
         Some(new PasswordField {
