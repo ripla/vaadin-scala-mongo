@@ -18,7 +18,7 @@ object RegistrationFormFieldFactory extends FormFieldFactory {
           caption = "Confirm password"
           validators += Validator(value => {
             if (value == form.field("password").get.value) Valid
-            else Invalid("Passwords must match")
+            else Invalid(List("Passwords must match"))
           })
         })
 

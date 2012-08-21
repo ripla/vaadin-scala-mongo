@@ -12,7 +12,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
 
   override val main: ComponentContainer = new HorizontalLayout {
     sizeFull()
-    styleName = Reindeer.LAYOUT_WHITE
+    styleName = Reindeer.LayoutWhite
 
     val tableLayout = new VerticalLayout {
       size(50 pct, 50 pct)
@@ -23,7 +23,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
         container = new BeanItemContainer(service.all)
       }
 
-      val addButton: Button = Button("Register", showForm)
+      val addButton = Button("Register", showForm)
 
       components += (table, addButton)
     }
@@ -47,15 +47,14 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
     }
 
     def showList(): Unit = {
-      try {
-        form.commit
+        if(form.commit.isValid) { //form handles error
         val bean = form.item.get.bean
         service.create(bean)
         tableLayout.table.container = new BeanItemContainer(service.all)
         replaceComponent(form, tableLayout)
         alignment(tableLayout -> Alignment.MiddleCenter)
         mainWindow.showNotification("User %s registered".format(bean.username))
-      } catch { case _ => }
+      } 
     }
   }
 }

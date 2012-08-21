@@ -15,7 +15,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
 
   override val main: ComponentContainer = new VerticalLayout {
     sizeFull()
-    styleName = Reindeer.LAYOUT_WHITE
+    styleName = Reindeer.LayoutWhite
 
     val tableLayout = new VerticalLayout {
       size(50 pct, 50 pct)
@@ -23,7 +23,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
 
       val table = new Table {
         sizeFull()
-        styleNames += (Reindeer.TABLE_BORDERLESS, Reindeer.TABLE_STRONG)
+        styleNames += (Reindeer.TableBorderless, Reindeer.TableStrong)
         container = new BeanItemContainer(mapRegistrations)
         visibleColumns = Seq("username", "realName")
       }
@@ -54,8 +54,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
     }
 
     def showList(): Unit = {
-      try {
-        form.commit
+      if (form.commit.isValid) { //form handles error
         val bean = form.item.get.asInstanceOf[BeanItem[Registration]].bean
         saveRegistration(bean)
         tableLayout.table.container = new BeanItemContainer(mapRegistrations)
@@ -63,7 +62,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
         replaceComponent(form, tableLayout)
         alignment(tableLayout -> Alignment.MiddleCenter)
         mainWindow.showNotification("User %s registered".format(bean.username))
-      } catch { case _ => } //form handles error
+      }
     }
   }
 
@@ -79,7 +78,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
           caption = "Confirm password"
           validators += Validator(value => {
             if (value == form.field("password").get.value) Valid
-            else Invalid("Passwords must match")
+            else Invalid(List("Passwords must match"))
           })
         })
 
