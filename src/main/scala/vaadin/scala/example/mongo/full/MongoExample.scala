@@ -10,7 +10,7 @@ class MongoExample extends Application("Mongo & Vaadin, tied together with Scala
 
   val service: RegistrationService = RegistrationService
 
-  override val main: ComponentContainer = new HorizontalLayout {
+  override val main: ComponentContainer = new VerticalLayout {
     sizeFull()
     styleName = Reindeer.LayoutWhite
 
