@@ -10,24 +10,21 @@ seq(webSettings: _*)
 
 //gwtVersion := "2.4.0"
 
-resolvers ++= Seq("TypeSafe repo" at "http://repo.typesafe.com/typesafe/releases",
-				  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots")
+resolvers ++= Seq("Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+				  "Vaadin add-ons repository" at "http://maven.vaadin.com/vaadin-addons")
 				
-
 // basic dependencies
 libraryDependencies ++= Seq(
   "com.vaadin" % "vaadin" % "6.8.2",
   "org.eclipse.jetty" % "jetty-webapp" % "8.0.4.v20111024" % "container",
-  "vaadin.scala" %% "scaladin" % "2.0.0-SNAPSHOT"
+  "org.vaadin.addons" % "scaladin" % "2.0.0"
 )
 
 libraryDependencies ++= Seq(
 	//Casbah and Salat
 	"org.mongodb" % "casbah_2.9.2" % "2.4.1",		
-	//"com.mongodb.casbah" % "casbah_2.9.0-1" % "2.1.5.0",
 	"com.novus" %% "salat" % "1.9.1-SNAPSHOT"
 )
-
 
 
 // hack: sbt-gwt-plugin assumes that sources are in src/main/java
