@@ -4,4 +4,4 @@ This is an example project that contains a simple registration application that 
 
 For MongoDB the Casbah and Salat libraries are used.
 
-This example was inspired by the Scala, Play 2 and Mongo example @ [yobriefca.se](http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/).
+This example was inspired by the Scala, Play 2 and Mongo example @ [yobriefca.se](http://yobriefca.se/blog/2012/05/08/starter-for-10-scala/). The tutorial for this project can be found on [GitHub](https://github.com/ripla/vaadin-scala-mongo/wiki/Tutorial).
