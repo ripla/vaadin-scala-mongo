@@ -10,8 +10,7 @@ seq(webSettings: _*)
 
 //gwtVersion := "2.4.0"
 
-resolvers ++= Seq("Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-				  "Vaadin add-ons repository" at "http://maven.vaadin.com/vaadin-addons")
+resolvers ++= Seq("Vaadin add-ons repository" at "http://maven.vaadin.com/vaadin-addons")
 				
 // basic dependencies
 libraryDependencies ++= Seq(
@@ -22,8 +21,8 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
 	//Casbah and Salat
-	"org.mongodb" % "casbah_2.9.2" % "2.4.1",		
-	"com.novus" %% "salat" % "1.9.1-SNAPSHOT"
+	"org.mongodb" %% "casbah" % "2.4.1",		
+	"com.novus" %% "salat" % "1.9.1"
 )
 
 
